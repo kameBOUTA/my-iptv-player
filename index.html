@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>???? ??????</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        #video { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+<video id="video" controls autoplay playsinline></video>
+
+<script>
+    const video = document.getElementById('video');
+    // ?? ???? ?????? ??? ?? ?? ??? ???? ???????
+    const videoSrc = "http://151.80.18.177:86/Tiji_HD/index.m3u8";
+
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', () => video.play());
+    }
+</script>
+
+</body>
+</html>
